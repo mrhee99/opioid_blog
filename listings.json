@@ -2,8 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/opioid.html",
       "/posts/post-with-code/index.html",
+      "/posts/opioid.html",
       "/posts/welcome/index.html"
     ]
   }
