@@ -218,30 +218,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="evolution-of-opioid-overdose-death-in-the-us" class="level1">
-<h1>Evolution of Opioid Overdose Death in the US</h1>
-<section id="by-michelle-ju-young-rhee-date-modified-3132023" class="level3">
-<h3 class="anchored" data-anchor-id="by-michelle-ju-young-rhee-date-modified-3132023">By Michelle Ju Young Rhee | Date Modified: 3/13/2023</h3>
-</section>
 <section id="research-question-how-has-the-opioid-overdose-deaths-in-the-u.s.-progressed-from-1999-to-2019-by-sex-and-race" class="level3">
 <h3 class="anchored" data-anchor-id="research-question-how-has-the-opioid-overdose-deaths-in-the-u.s.-progressed-from-1999-to-2019-by-sex-and-race">Research Question: <strong><em>How has the opioid overdose deaths in the U.S. progressed from 1999 to 2019 by sex and race?</em></strong></h3>
 </section>
 <section id="i.-introduction" class="level2">
 <h2 class="anchored" data-anchor-id="i.-introduction">I. Introduction</h2>
-<p><br> For my final project, I decided to analyze the evolution of the opioid overdose in the United States from 1999 to 2019 and delve deeper into comparing the drug overdose of varying races and sex. I felt motivated to use this opioid data file after watching a documentary about opioid overdose death and how it has rapidly grown over the past decade across the United States. I became interested in analyzing how opioid overdose has impacted varying races and sex and comparing the growth rate of each group.</p>
+<p><br> For my final project, I decided to analyze the evolution of the opioid overdose in the United States from 1999 to 2019 and delve deeper into comparing the opioid overdose growth rate of varying races and sex. I felt motivated to use this opioid data file after watching a documentary about opioid overdose epidemic and how it has rapidly grown over the past decade across the United States. I became interested in analyzing how opioid overdose has impacted a wide range of races and sex and creating new dataframes containing the growing vulnerability of each group to opioid overdose.</p>
 </section>
 <section id="ii.-methods" class="level2">
 <h2 class="anchored" data-anchor-id="ii.-methods">II. Methods</h2>
-<p><br> The data that I am using for this project was retrieved from CORGIS Opioids file (https://corgis-edu.github.io/corgis/datasets/csv/opioids/opioids.csv). This dataset was compiled by the National Institute on Drug Abuse. It contains the number of overdose deaths due to all drugs, all opioids and subsections of opioids including prescription, synthetic drug, heroin and cocaine. There are also the rate of overdose deaths due to each of these kind of opioids per 100,000 people. <br></p>
+<p><br> The data that I am using for this project was retrieved from CORGIS Opioids file (https://corgis-edu.github.io/corgis/datasets/csv/opioids/opioids.csv). This dataset was compiled by the National Institute on Drug Abuse. It contains the number of overdose deaths due to all opioids and subsections of opioids including prescription, synthetic drug, heroin and cocaine. There are also the rate of overdose deaths due to each of these kind of opioids per 100,000 people. <br></p>
 <p>Let’s start observing the dataset closely. I called the entire opioid dataset below:</p>
-<div class="cell" data-execution_count="82">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>drug<span class="op">=</span>pd.read_csv(<span class="st">'https://corgis-edu.github.io/corgis/datasets/csv/opioids/opioids.csv'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>drug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="82">
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>drug<span class="op">=</span>pd.read_csv(<span class="st">'https://corgis-edu.github.io/corgis/datasets/csv/opioids/opioids.csv'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>drug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
 
 <div>
 
@@ -783,14 +779,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>Since I am only focusing on opioid-related overdose deaths, I refined the dataset by removing all the columns that are related to deaths due to all drugs.</p>
-<div class="cell" data-execution_count="83">
+<p>Since I am only focusing on opioid-related overdose deaths, I refined the dataset by removing all the columns that are related to deaths due to ‘all drugs’.</p>
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#redefine drug dataset by dropping following columns.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>drug<span class="op">=</span>drug.drop([<span class="st">'Number.All'</span>, <span class="st">'Rate.All.Total'</span>, <span class="st">'Rate.All.Sex.Female'</span>,<span class="st">'Rate.All.Sex.Male'</span>, <span class="st">'Rate.All.Race.White'</span>, <span class="st">'Rate.All.Race.Black'</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">'Rate.All.Race.Asian or Pacific Islander'</span>, <span class="st">'Rate.All.Race.Hispanic'</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">'Rate.All.Race.American Indian or Alaska Native'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>drug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="83">
+<div class="cell-output cell-output-display" data-execution_count="2">
 
 <div>
 
@@ -1333,9 +1329,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>While I cleared some irrelevant columns, the dataset still hides some columns due to its massive size. Thus, let’s print out all the columns’ names below:</p>
-<div class="cell" data-execution_count="85">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>drug.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="85">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>Index(['Year', 'Number.Opioid.Any', 'Number.Opioid.Prescription',
        'Number.Opioid.Synthetic', 'Number.Opioid.Heroin',
        'Number.Opioid.Cocaine', 'Rate.Opioid.Any.Total',
@@ -1364,419 +1360,571 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       dtype='object')</code></pre>
 </div>
 </div>
-<p>Then I wanted to look at the overall summary of the values in the dataset, which is shown below:</p>
-<div class="cell" data-execution_count="87">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>drug.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="87">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Year</th>
-      <th>Number.Opioid.Any</th>
-      <th>Number.Opioid.Prescription</th>
-      <th>Number.Opioid.Synthetic</th>
-      <th>Number.Opioid.Heroin</th>
-      <th>Number.Opioid.Cocaine</th>
-      <th>Rate.Opioid.Any.Total</th>
-      <th>Rate.Opioid.Any.Sex.Female</th>
-      <th>Rate.Opioid.Any.Sex.Male</th>
-      <th>Rate.Opioid.Any.Race.White</th>
-      <th>...</th>
-      <th>Rate.Opioid.Heroin.Race.White</th>
-      <th>Rate.Opioid.Heroin.Race.Black</th>
-      <th>Rate.Opioid.Heroin.Race.Hispanic</th>
-      <th>Rate.Opioid.Cocaine.Total</th>
-      <th>Rate.Opioid.Cocaine.Sex.Female</th>
-      <th>Rate.Opioid.Cocaine.Sex.Male</th>
-      <th>Rate.Opioid.Cocaine.Race.White</th>
-      <th>Rate.Opioid.Cocaine.Race.Black</th>
-      <th>Rate.Opioid.Cocaine.Race.Hispanic</th>
-      <th>Rate.Opioid.Cocaine.Race.American Indian or Alaska Native</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>...</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-      <td>21.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>2009.000000</td>
-      <td>23613.904762</td>
-      <td>11744.952381</td>
-      <td>7659.285714</td>
-      <td>6170.809524</td>
-      <td>6731.619048</td>
-      <td>7.604762</td>
-      <td>4.980952</td>
-      <td>10.219048</td>
-      <td>9.657143</td>
-      <td>...</td>
-      <td>2.428571</td>
-      <td>1.847619</td>
-      <td>1.466667</td>
-      <td>2.176190</td>
-      <td>1.176190</td>
-      <td>3.190476</td>
-      <td>2.057143</td>
-      <td>4.709524</td>
-      <td>1.604762</td>
-      <td>1.785714</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>6.204837</td>
-      <td>13151.362260</td>
-      <td>4324.914328</td>
-      <td>11072.513035</td>
-      <td>5337.868232</td>
-      <td>3726.114162</td>
-      <td>3.960363</td>
-      <td>2.508111</td>
-      <td>5.447533</td>
-      <td>5.282194</td>
-      <td>...</td>
-      <td>2.150382</td>
-      <td>1.610782</td>
-      <td>0.846365</td>
-      <td>1.104493</td>
-      <td>0.654908</td>
-      <td>1.573183</td>
-      <td>1.194392</td>
-      <td>2.136096</td>
-      <td>0.657629</td>
-      <td>0.711538</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>1999.000000</td>
-      <td>8050.000000</td>
-      <td>3442.000000</td>
-      <td>730.000000</td>
-      <td>1779.000000</td>
-      <td>3544.000000</td>
-      <td>2.900000</td>
-      <td>1.400000</td>
-      <td>4.300000</td>
-      <td>2.800000</td>
-      <td>...</td>
-      <td>0.600000</td>
-      <td>0.600000</td>
-      <td>0.700000</td>
-      <td>1.300000</td>
-      <td>0.600000</td>
-      <td>1.900000</td>
-      <td>1.000000</td>
-      <td>3.000000</td>
-      <td>0.900000</td>
-      <td>0.900000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>2004.000000</td>
-      <td>13756.000000</td>
-      <td>8577.000000</td>
-      <td>1664.000000</td>
-      <td>2080.000000</td>
-      <td>4404.000000</td>
-      <td>4.700000</td>
-      <td>3.100000</td>
-      <td>6.300000</td>
-      <td>5.700000</td>
-      <td>...</td>
-      <td>0.700000</td>
-      <td>0.800000</td>
-      <td>0.900000</td>
-      <td>1.400000</td>
-      <td>0.800000</td>
-      <td>2.100000</td>
-      <td>1.300000</td>
-      <td>3.400000</td>
-      <td>1.100000</td>
-      <td>1.400000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>2009.000000</td>
-      <td>20422.000000</td>
-      <td>13523.000000</td>
-      <td>2666.000000</td>
-      <td>3041.000000</td>
-      <td>5199.000000</td>
-      <td>6.600000</td>
-      <td>4.600000</td>
-      <td>8.700000</td>
-      <td>8.600000</td>
-      <td>...</td>
-      <td>1.200000</td>
-      <td>0.900000</td>
-      <td>1.000000</td>
-      <td>1.700000</td>
-      <td>0.900000</td>
-      <td>2.500000</td>
-      <td>1.600000</td>
-      <td>4.000000</td>
-      <td>1.400000</td>
-      <td>1.600000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2014.000000</td>
-      <td>28647.000000</td>
-      <td>14838.000000</td>
-      <td>5544.000000</td>
-      <td>10574.000000</td>
-      <td>6784.000000</td>
-      <td>9.000000</td>
-      <td>6.300000</td>
-      <td>11.700000</td>
-      <td>12.000000</td>
-      <td>...</td>
-      <td>4.400000</td>
-      <td>2.500000</td>
-      <td>1.900000</td>
-      <td>2.200000</td>
-      <td>1.200000</td>
-      <td>3.200000</td>
-      <td>2.200000</td>
-      <td>4.900000</td>
-      <td>1.700000</td>
-      <td>2.100000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>2019.000000</td>
-      <td>49860.000000</td>
-      <td>17087.000000</td>
-      <td>36359.000000</td>
-      <td>15482.000000</td>
-      <td>15883.000000</td>
-      <td>15.500000</td>
-      <td>9.400000</td>
-      <td>21.700000</td>
-      <td>19.400000</td>
-      <td>...</td>
-      <td>6.300000</td>
-      <td>5.000000</td>
-      <td>3.100000</td>
-      <td>4.900000</td>
-      <td>2.700000</td>
-      <td>7.100000</td>
-      <td>4.600000</td>
-      <td>10.700000</td>
-      <td>3.400000</td>
-      <td>3.700000</td>
-    </tr>
-  </tbody>
-</table>
-<p>8 rows × 40 columns</p>
-</div>
-</div>
-</div>
-<p>Based on the number of opioid overdose in the dataset, I created data visualizations for each type of opioid drug.</p>
-<div class="cell" data-execution_count="90">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a dataframe with number of opioid any column.</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>drug_opioid_any<span class="op">=</span>drug[[<span class="st">'Year'</span>,<span class="st">'Number.Opioid.Any'</span>]].copy()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>drug_opioid_any.plot(x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Number.Opioid.Any'</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Number of Overdose Deaths: Any Opioid'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="90">
-<pre><code>Text(0.5, 1.0, 'Number of Overdose Deaths: Any Opioid')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="91">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a dataframe with number of opioid prescription column.</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>drug_opioid_prescription<span class="op">=</span>drug[[<span class="st">'Year'</span>,<span class="st">'Number.Opioid.Prescription'</span>]].copy()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>drug_opioid_prescription.plot(x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Number.Opioid.Prescription'</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Number of Overdose Deaths: Prescription'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="91">
-<pre><code>Text(0.5, 1.0, 'Number of Overdose Deaths: Prescription')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="92">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a dataframe with number of opioid synthetic column.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>drug_opioid_synthetic<span class="op">=</span>drug[[<span class="st">'Year'</span>,<span class="st">'Number.Opioid.Synthetic'</span>]].copy()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>drug_opioid_synthetic.plot(x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Number.Opioid.Synthetic'</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Number of Overdose Deaths: Synthetic'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="92">
-<pre><code>Text(0.5, 1.0, 'Number of Overdose Deaths: Synthetic')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="93">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a dataframe with number of opioid heroin column.</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>drug_opioid_heroin<span class="op">=</span>drug[[<span class="st">'Year'</span>,<span class="st">'Number.Opioid.Heroin'</span>]].copy()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>drug_opioid_heroin.plot(x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Number.Opioid.Heroin'</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Number of Overdose Deaths: Heroin'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="93">
-<pre><code>Text(0.5, 1.0, 'Number of Overdose Deaths: Heroin')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-execution_count="94">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a dataframe with number of opioid cocaine column.</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>drug_opioid_cocaine<span class="op">=</span>drug[[<span class="st">'Year'</span>,<span class="st">'Number.Opioid.Cocaine'</span>]].copy()</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>drug_opioid_cocaine.plot(x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Number.Opioid.Cocaine'</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Number of Overdose Deaths: Cocaine'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="94">
-<pre><code>Text(0.5, 1.0, 'Number of Overdose Deaths: Cocaine')</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
-</div>
-</div>
 </section>
 <section id="iii.-results" class="level2">
 <h2 class="anchored" data-anchor-id="iii.-results">III. Results</h2>
-<p>Now that I spent enough time looking through the dataset, I began the main section of analysis to answer the research question. As my first step, I converted columns of dataframe into lists. As the x-axis of each graph is the year, I created a new list called ‘year’ from the ‘year’ column in drug dataset. Then, for each group of race and sex, I repeated converting dataframe into lists. Then I plotted multiple lines in each graph of sex and race to see the growth easily.</p>
-<div class="cell" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the Rate.Opioid.Any.Sex.Female and Rate.Opioid.Any.Sex.Male columns to lists</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>year<span class="op">=</span>drug[<span class="st">'Year'</span>].values.tolist()</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>rate_any_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Sex.Female'</span>].values.tolist()</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>rate_any_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Sex.Male'</span>].values.tolist()</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.plot(year, rate_any_female, label<span class="op">=</span><span class="st">'female'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.plot(year, rate_any_male, label<span class="op">=</span><span class="st">'male'</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Any Opioid Overdose Death Rate by Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="99">
+<p>Now that I spent enough time looking through the dataset, I began the main section of analysis to answer the research question by analyzing the overall overdose rate of <strong><em>all opioids</em></strong>. As my first step, I converted columns of dataframe into lists. As the x-axis of each graph is the year, I created a new list called ‘year’ from the ‘year’ column in drug dataset. Then, to analyze the growth rate of each group of race and sex, I repeated converting dataframe into lists to effectively plot multiple lines and some bars in order to see the growth easily.</p>
+<section id="any-opioid-overdose-death-rate-by-sex" class="level3">
+<h3 class="anchored" data-anchor-id="any-opioid-overdose-death-rate-by-sex">Any Opioid Overdose Death Rate by Sex</h3>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the Rate.Opioid.Any.Sex.Female and Rate.Opioid.Any.Sex.Male columns to lists</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>year<span class="op">=</span>drug[<span class="st">'Year'</span>].values.tolist()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rate_any_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Sex.Female'</span>].values.tolist()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rate_any_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Sex.Male'</span>].values.tolist()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.bar(year, rate_any_female, color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'female'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.bar(year, rate_any_male, bottom<span class="op">=</span>rate_any_female, color<span class="op">=</span><span class="st">'grey'</span>,label<span class="op">=</span><span class="st">'male'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.plot(year, rate_any_female, label<span class="op">=</span><span class="st">'female'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.plot(year, rate_any_male, label<span class="op">=</span><span class="st">'male'</span>, color<span class="op">=</span><span class="st">'orange'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Total Rates (female+male)'</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Any Opioid Overdose Death Rate by Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>Text(0.5, 1.0, 'Any Opioid Overdose Death Rate by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="opioid_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="101">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the Rate.Opioid.Any columns for races to lists</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rate_any_white<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.White'</span>].values.tolist()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>rate_any_black<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.Black'</span>].values.tolist()</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>rate_any_asian<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.Asian or Pacific Islander'</span>].values.tolist()</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>rate_any_hispanic<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.Hispanic'</span>].values.tolist()</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>rate_any_indian<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.American Indian or Alaska Native'</span>].values.tolist()</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_white, label<span class="op">=</span><span class="st">'White'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_black, label<span class="op">=</span><span class="st">'Black'</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_asian, label<span class="op">=</span><span class="st">'Asian or Pacific Islander'</span>, linestyle<span class="op">=</span><span class="st">':'</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_hispanic, label<span class="op">=</span><span class="st">'Hispanic'</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_indian, label<span class="op">=</span><span class="st">'American Indian or Alaska Native'</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Any Opioid Overdose Death Growth by Race'</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="101">
+</section>
+<section id="any-opioid-overdose-death-rate-by-race" class="level3">
+<h3 class="anchored" data-anchor-id="any-opioid-overdose-death-rate-by-race">Any Opioid Overdose Death Rate by Race</h3>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the Rate.Opioid.Any columns for races to lists</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rate_any_white<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.White'</span>].values.tolist()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rate_any_black<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.Black'</span>].values.tolist()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>rate_any_asian<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.Asian or Pacific Islander'</span>].values.tolist()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>rate_any_hispanic<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.Hispanic'</span>].values.tolist()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>rate_any_indian<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Any.Race.American Indian or Alaska Native'</span>].values.tolist()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_white, label<span class="op">=</span><span class="st">'White'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_black, label<span class="op">=</span><span class="st">'Black'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_asian, label<span class="op">=</span><span class="st">'Asian or Pacific Islander'</span>, linestyle<span class="op">=</span><span class="st">':'</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_hispanic, label<span class="op">=</span><span class="st">'Hispanic'</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plt.plot(year,rate_any_indian, label<span class="op">=</span><span class="st">'American Indian or Alaska Native'</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Any Opioid Overdose Death Rate by Race'</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>Text(0, 0.5, 'Rate')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="opioid_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Now that I observed the overall picture of the all opioid overdose growth, I started to dig deeper into analyzing the overdose growth of a specific opioid drug based on sex and race. The process is somewhat different. First, I created a function that calculates the slope of line graph. The line is actually the line of best fit of the scatter plot of data points. Thus, I then converted the columns of dataframe into array. Next, I created scatter plots and drew a line of best fit. Lastly, I called the function with the info of the line and added the value to a new designated list.</p>
-<div class="cell" data-execution_count="106">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#function for calculating slope.</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> slope(x1,y1,x2,y2):</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> (y2<span class="op">-</span>y1)<span class="op">/</span>(x2<span class="op">-</span>x1)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the columns to array. </span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>year<span class="op">=</span>np.array(year)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>rate_presc_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Sex.Female'</span>].to_numpy()</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>rate_presc_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Sex.Male'</span>].to_numpy()</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Prescription Overdose Death Growth by Sex'</span>)</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#find the line of best fit. </span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>a,b<span class="op">=</span>np.polyfit(year,rate_presc_female,<span class="dv">1</span>)</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>c,d<span class="op">=</span>np.polyfit(year,rate_presc_male,<span class="dv">1</span>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>plt.scatter(year,rate_presc_female, label<span class="op">=</span><span class="st">'female'</span>)</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>plt.scatter(year,rate_presc_male, label<span class="op">=</span><span class="st">'male'</span>)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>plt.plot(year,a<span class="op">*</span>year<span class="op">+</span>b)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>plt.plot(year,c<span class="op">*</span>year<span class="op">+</span>d)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co">#create an empty list for slope.</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>slope_prescription_female<span class="op">=</span>[]</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>slope_prescription_male<span class="op">=</span>[]</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate slope by calling the function.</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>slope_presc_female<span class="op">=</span> slope(year[<span class="dv">0</span>], rate_presc_female[<span class="dv">0</span>],year[<span class="op">-</span><span class="dv">1</span>], rate_presc_female[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>slope_presc_male<span class="op">=</span> slope(year[<span class="dv">0</span>], rate_presc_male[<span class="dv">0</span>],year[<span class="op">-</span><span class="dv">1</span>], rate_presc_male[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co">#add the value to each list.</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>slope_prescription_female.append(slope_presc_female)</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>slope_prescription_male.append(slope_presc_male)</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_prescription_female,slope_prescription_male)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now that I observed the overall picture of the all opioid overdose growth, I started to dig deeper into analyzing the overdose growth of a <strong><em>specific opioid</em></strong> drug based on sex and race. The process is somewhat different. First, I obtained data from each column in the dataframe called drug. Then I added these values to a new empty list and created another empty list to store calcuated slopes only. Next, I wrote a for loop that goes through each group’s values, makes a scatterplot, calculate slopes using pyplot, plots the linear regression and appends the slopes to a list. Lastly, I changed design of the graph by adding title for each axis, main title and legend.</p>
+</section>
+<section id="prescription-overdose-death-growth-by-sex" class="level3">
+<h3 class="anchored" data-anchor-id="prescription-overdose-death-growth-by-sex">Prescription Overdose Death Growth by Sex</h3>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rate_presc_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Sex.Female'</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>rate_presc_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Sex.Male'</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>rate_presc_sex<span class="op">=</span>[]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>rate_presc_sex.append(rate_presc_female)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>rate_presc_sex.append(rate_presc_male)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>slope_presc_sex<span class="op">=</span>[]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_presc_sex:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    slope_presc_sex.append(a)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_presc_sex)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>presc_fem <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'female'</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>presc_male <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'male'</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[presc_fem,presc_male])</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Prescription Overdose Death Growth by Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[0.135] [0.16999999999999998]</code></pre>
+<pre><code>[0.1657142857142838, 0.19051948051947903]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Text(0.5, 1.0, 'Prescription Overdose Death Growth by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-13-output-3.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Prescription Overdose Death Growth by Race</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In order to determine whether linear or polynomial regression is more appropriate, I created a graph of polynomial regression below as a test. Since slope is only applicable for linear regression, I took a derivative which turned out to be -0.02592 and -0.04141 for female and male groups. According to the shape, this negative slope might be true. However, in terms of the overall trend, the rate of overdose death due to prescription opioid definitely grew over the years. Therefore, for the remainder of analysis, I decided to use linear regression which would better provide the relationship between the rate and year in a simplest manner.</p>
+</section>
+<section id="prescription-overdose-death-growth-by-sex-polynomial-regression" class="level3">
+<h3 class="anchored" data-anchor-id="prescription-overdose-death-growth-by-sex-polynomial-regression">Prescription Overdose Death Growth by Sex (POLYNOMIAL REGRESSION)</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rate_presc_females<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Sex.Female'</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rate_presc_males<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Sex.Male'</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>rate_presc_sexual<span class="op">=</span>[]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>rate_presc_sexual.append(rate_presc_females)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>rate_presc_sexual.append(rate_presc_males)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#create polynomial regression.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_presc_sexual:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    poly_fit<span class="op">=</span>np.poly1d(np.polyfit(x,y,<span class="dv">2</span>))</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#slope is the derivative of polynomial regression.</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    slope<span class="op">=</span> poly_fit.deriv()</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    xx <span class="op">=</span> np.linspace(<span class="dv">1999</span>, <span class="dv">2019</span>, <span class="dv">11</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    plt.plot(xx, poly_fit(xx), c<span class="op">=</span><span class="st">'r'</span>,linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(slope)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>presc_fem <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'female'</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>presc_male <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'male'</span>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[presc_fem,presc_male])</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Prescription Overdose Death Growth by Sex (POLYNOMIAL REGRESSION)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 
+-0.02592 x + 52.24
+ 
+-0.04141 x + 83.38</code></pre>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Synthetic Overdose Death Growth by Sex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Text(0.5, 1.0, 'Prescription Overdose Death Growth by Sex (POLYNOMIAL REGRESSION)')</code></pre>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Synthetic Overdose Death Growth by Race</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-14-output-3.png" class="img-fluid"></p>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Heroin Overdose Death Growth by Sex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Heroin Overdose Death Growth by Race</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For the following analysis by race, some group data is missing unfortuantely. For the prescription overdose death growth below, data of Asian or Pacific Islanders is not available. For the sake of this project, I will still analyze all the avilable data in this datasource. However, this can be a room for improvement by compiling or finding a more comprehensive dataset in the future.</p>
+</section>
+<section id="prescription-overdose-death-growth-by-race" class="level3">
+<h3 class="anchored" data-anchor-id="prescription-overdose-death-growth-by-race">Prescription Overdose Death Growth by Race</h3>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column (Asian or Pacific Islander data is missing).</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>rate_presc_white<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Race.White'</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>rate_presc_black<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Race.Black'</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>rate_presc_hispanic<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Race.Hispanic'</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rate_presc_indian<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Prescription.Race.American Indian or Alaska Native'</span>]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for prescription overdose death rate by race.</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>rate_presc_race<span class="op">=</span>[]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>rate_presc_race.append(rate_presc_white)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>rate_presc_race.append(rate_presc_black)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>rate_presc_race.append(rate_presc_hispanic)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>rate_presc_race.append(rate_presc_indian)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>slope_presc_race<span class="op">=</span>[]</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_presc_race:</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    slope_presc_race.append(a)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_presc_race)</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>presc_white <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>presc_black <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>presc_hispanic <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'hispanic'</span>)</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>presc_indian <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'indian'</span>)</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[presc_white,presc_black,presc_hispanic,presc_indian])</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Prescription Overdose Death Growth by Race'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.2529870129870105, 0.13389610389610124, 0.039999999999998814, 0.2605194805194794]</code></pre>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Cocaine Overdose Death Growth by Sex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Text(0.5, 1.0, 'Prescription Overdose Death Growth by Race')</code></pre>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">##Heroin Overdose Death Growth by Race</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-15-output-3.png" class="img-fluid"></p>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#put all the slopes into 1 dataframe; 1 for each sex and race</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#discussion</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="synthetic-overdose-death-growth-by-sex" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-overdose-death-growth-by-sex">Synthetic Overdose Death Growth by Sex</h3>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rate_synth_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Synthetic.Sex.Female'</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>rate_synth_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Synthetic.Sex.Male'</span>]</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for synthetic overdose death rate by sex.</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>rate_synth_sex<span class="op">=</span>[]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>rate_synth_sex.append(rate_synth_female)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>rate_synth_sex.append(rate_synth_male)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>slope_synth_sex<span class="op">=</span>[]</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_synth_sex:</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    slope_synth_sex.append(a)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_synth_sex)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>synth_fem <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'female'</span>)</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>synth_male <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'male'</span>)</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[synth_fem,synth_male])</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Synthetic Overdose Death Growth by Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.23649350649350034, 0.6229870129869955]</code></pre>
 </div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Text(0.5, 1.0, 'Synthetic Overdose Death Growth by Sex')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-16-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="synthetic-overdose-death-growth-by-race" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-overdose-death-growth-by-race">Synthetic Overdose Death Growth by Race</h3>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column (Asian or Pacific Islander and American Indian or Native Alaskan data are missing).</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rate_synth_white<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Synthetic.Race.White'</span>]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>rate_synth_black<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Synthetic.Race.Black'</span>]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>rate_synth_hispanic<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Synthetic.Race.Hispanic'</span>]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for synthetic overdose death rate by race.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>rate_synth_race<span class="op">=</span>[]</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>rate_synth_race.append(rate_synth_white)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>rate_synth_race.append(rate_synth_black)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>rate_synth_race.append(rate_synth_hispanic)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>slope_synth_race<span class="op">=</span>[]</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_synth_race:</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    slope_synth_race.append(a)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_synth_race)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>synth_white <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>synth_black <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>synth_hispanic <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'hispanic'</span>)</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[synth_white,synth_black,synth_hispanic])</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Synthetic Overdose Death Growth by Race'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.5502597402597247, 0.47181818181816904, 0.20402597402596873]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>Text(0.5, 1.0, 'Synthetic Overdose Death Growth by Race')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-17-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="heroin-overdose-death-growth-by-sex" class="level3">
+<h3 class="anchored" data-anchor-id="heroin-overdose-death-growth-by-sex">Heroin Overdose Death Growth by Sex</h3>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>rate_heroin_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Heroin.Sex.Female'</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>rate_heroin_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Heroin.Sex.Male'</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for heroin overdose death rate by sex.</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>rate_heroin_sex<span class="op">=</span>[]</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>rate_heroin_sex.append(rate_heroin_female)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>rate_heroin_sex.append(rate_heroin_male)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>slope_heroin_sex<span class="op">=</span>[]</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_heroin_sex:</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    slope_heroin_sex.append(a)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_heroin_sex)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>heroin_fem <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'female'</span>)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>heroin_male <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'male'</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[heroin_fem,heroin_male])</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Heroin Overdose Death Growth by Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.12532467532467176, 0.35545454545453514]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>Text(0.5, 1.0, 'Heroin Overdose Death Growth by Sex')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-18-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="heroin-overdose-death-growth-by-race" class="level3">
+<h3 class="anchored" data-anchor-id="heroin-overdose-death-growth-by-race">Heroin Overdose Death Growth by Race</h3>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column (Asian or Pacific Islander and American Indian or Native Alaskan data are missing).</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>rate_heroin_white<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Heroin.Race.White'</span>]</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>rate_heroin_black<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Heroin.Race.Black'</span>]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>rate_heroin_hispanic<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Heroin.Race.Hispanic'</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for heroin overdose death rate by race.</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>rate_heroin_race<span class="op">=</span>[]</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>rate_heroin_race.append(rate_heroin_white)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>rate_heroin_race.append(rate_heroin_black)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>rate_heroin_race.append(rate_heroin_hispanic)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>slope_heroin_race<span class="op">=</span>[]</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_heroin_race:</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    slope_heroin_race.append(a)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_heroin_race)</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>heroin_white <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>heroin_black <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>heroin_hispanic <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'hispanic'</span>)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[heroin_white,heroin_black,heroin_hispanic])</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Heroin Overdose Death Growth by Race'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.310909090909082, 0.21597402597401968, 0.11311688311687951]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>Text(0.5, 1.0, 'Heroin Overdose Death Growth by Race')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-19-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="cocaine-overdose-death-growth-by-sex" class="level3">
+<h3 class="anchored" data-anchor-id="cocaine-overdose-death-growth-by-sex">Cocaine Overdose Death Growth by Sex</h3>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column.</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>rate_cocaine_female<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Cocaine.Sex.Female'</span>]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>rate_cocaine_male<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Cocaine.Sex.Male'</span>]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for cocaine overdose death rate by sex.</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>rate_cocaine_sex<span class="op">=</span>[]</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>rate_cocaine_sex.append(rate_cocaine_female)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>rate_cocaine_sex.append(rate_cocaine_male)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>slope_cocaine_sex<span class="op">=</span>[]</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_cocaine_sex:</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    slope_cocaine_sex.append(a)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_cocaine_sex)</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>cocaine_fem <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'female'</span>)</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>cocaine_male <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'male'</span>)</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[cocaine_fem,cocaine_male])</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Cocaine Overdose Death Growth by Sex'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.07675324675324491, 0.16818181818181396]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>Text(0.5, 1.0, 'Cocaine Overdose Death Growth by Sex')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-20-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="cocaine-overdose-death-growth-by-race" class="level3">
+<h3 class="anchored" data-anchor-id="cocaine-overdose-death-growth-by-race">Cocaine Overdose Death Growth by Race</h3>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get data from each column (Asian or Pacific Islander data is missing).</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>rate_cocaine_white<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Cocaine.Race.White'</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>rate_cocaine_black<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Cocaine.Race.Black'</span>]</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>rate_cocaine_hispanic<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Cocaine.Race.Hispanic'</span>]</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>rate_cocaine_indian<span class="op">=</span>drug[<span class="st">'Rate.Opioid.Cocaine.Race.American Indian or Alaska Native'</span>]</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for cocaine overdose death rate by race.</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>rate_cocaine_race<span class="op">=</span>[]</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>rate_cocaine_race.append(rate_cocaine_white)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>rate_cocaine_race.append(rate_cocaine_black)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>rate_cocaine_race.append(rate_cocaine_hispanic)</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>rate_cocaine_race.append(rate_cocaine_indian)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#empty list for slopes.</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>slope_cocaine_race<span class="op">=</span>[]</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> rate_cocaine_race:</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>year</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>i</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a scatterplot</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x,y)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate slope</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>    a,b<span class="op">=</span>np.polyfit(x,y,<span class="dv">1</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>    slope_cocaine_race.append(a)</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#plot the linear regression</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, a<span class="op">*</span>np.array(x)<span class="op">+</span>b)</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slope_cocaine_race)</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating legend with color box</span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>cocaine_white <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>cocaine_black <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'orange'</span>, label<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>cocaine_hispanic <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'hispanic'</span>)</span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>cocaine_indian <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">'red'</span>, label<span class="op">=</span><span class="st">'indian'</span>)</span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>[cocaine_white,cocaine_black,cocaine_hispanic,cocaine_indian])</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Rate'</span>)</span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Cocaine Overdose Death Growth by Race'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.14194805194804838, 0.1963636363636313, 0.045584415584413736, 0.07948051948051858]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>Text(0.5, 1.0, 'Cocaine Overdose Death Growth by Race')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="opioid_files/figure-html/cell-21-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now that I have calcuated slopes of all the groups, I compiled them into two separate dataframes (one for sex and another for race).</p>
+</section>
+<section id="dataframe-1-growth-rate-of-overdose-death-by-sex" class="level3">
+<h3 class="anchored" data-anchor-id="dataframe-1-growth-rate-of-overdose-death-by-sex">Dataframe #1: Growth Rate of Overdose Death by Sex</h3>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a dataframe with slopes of all drugs by sex.</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>overdose_by_sex<span class="op">=</span> {<span class="st">'Sex'</span>:[<span class="st">'Female'</span>,<span class="st">'Male'</span>],</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Prescription'</span>:slope_presc_sex,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Synthetic'</span>:slope_synth_sex,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Heroin'</span>:slope_heroin_sex,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cocaine'</span>:slope_cocaine_sex }</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>overdose_sex <span class="op">=</span> pd.DataFrame(overdose_by_sex)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(overdose_sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Sex  Prescription  Synthetic    Heroin   Cocaine
+0  Female      0.165714   0.236494  0.125325  0.076753
+1    Male      0.190519   0.622987  0.355455  0.168182</code></pre>
+</div>
+</div>
+</section>
+<section id="dataframe-2-growth-rate-of-overdose-death-by-race" class="level3">
+<h3 class="anchored" data-anchor-id="dataframe-2-growth-rate-of-overdose-death-by-race">Dataframe #2: Growth Rate of Overdose Death by Race</h3>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a dataframe with slopes of all drugs by race (I excluded Asian or Pacific Islander since there is no data on them for any of drugs).</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#For synthetic and heroin, no data of American Indian or Alaska Native; Thus, adding NaN value to make the array length equal.</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>overdose_by_race<span class="op">=</span> {<span class="st">'Race'</span>:[<span class="st">'White'</span>,<span class="st">'Black'</span>,<span class="st">'Hispanic'</span>,<span class="st">'American Indian or Alaska Native'</span>],</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Prescription'</span>:slope_presc_race,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Synthetic'</span>:[<span class="fl">0.675</span>, <span class="fl">0.705</span>, <span class="fl">0.31</span>, <span class="st">'NaN'</span>],</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Heroin'</span>:[<span class="fl">0.225</span>, <span class="fl">0.21000000000000002</span>, <span class="fl">0.1</span>, <span class="st">'NaN'</span>],</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Cocaine'</span>:slope_cocaine_race }</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>overdose_race <span class="op">=</span> pd.DataFrame(overdose_by_race)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(overdose_race)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                               Race  Prescription Synthetic Heroin   Cocaine
+0                             White      0.252987     0.675  0.225  0.141948
+1                             Black      0.133896     0.705   0.21  0.196364
+2                          Hispanic      0.040000      0.31    0.1  0.045584
+3  American Indian or Alaska Native      0.260519       NaN    NaN  0.079481</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="iv.-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="iv.-discussion">IV. Discussion</h2>
+<p>The analysis in the Result section provides a comprehensive overview as well as detailed information on the growth of overdose death for each group by sex and gender. Below, I described these findings more in depth and answered the research question.</p>
+<section id="big-picture-overall-opioid-overdose-by-sex-and-race" class="level3">
+<h3 class="anchored" data-anchor-id="big-picture-overall-opioid-overdose-by-sex-and-race">Big Picture: Overall Opioid Overdose by Sex and Race</h3>
+<p>Referring to “Any Opioid Overdose Death Rate by Sex” graph, it is very clear that male population not only accounted for greater portion of overdose death, but also displayed higher growth rate from 1999 to 2019 in the United States. Looking at “Any Opioid Overdose Death Rate by Race” graph, white population showed the highest rate of death and illustrates similar growth level with American Indian or Alaska Native group among others. Black and Hispanic groups have similar trend until 2015 as black group skyrocketed in its overdose rate. Throughout the years, Asian or Pacific Islander remained very close to 0% rate. Thus, in all of the analysis on each opioid type, this group’s data is missing.</p>
+</section>
+<section id="examination-of-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="examination-of-dataframes">Examination of Dataframes</h3>
+<p>Dataframe #1 shows the overview of opioid overdose death growth rate by sex for each drug type. For female group, synthetic opioid grew the most from 1999 to 2019 with the growth rate of 0.236494. Prescription opioid with 0.165714, heroin with 0.125325 and cocaine with 0.076753 followed in order. For male group, synthetic opioid also had the highest growth rate of 0.622987 which was followed by heroin (0.355455), prescription opioid (0.190519) and cocaine (0.168182).</p>
+<p>Dataframe #2 displays the growth rate of overdose death by race for each type of opioid. For white group, synthetic opioid showed the highest growth rate of 0.675, followed by prescription opioid (0.252987), heroin (0.225) and cocaine (0.141948). For black group, synthetic opioid grew the most with the rate of 0.705, followed by heroin (0.21), cocaine (0.196364) and prescription opioid (0.133896). For hispanic group, synthetic opioid also displayed the highest overdose growth rate of 0.31, followed by heroin (0.1), cocaine (0.045584) and prescription opioid (0.04). For American Indian or Alaska Native group, data on synthetic and heroin overdose are unavailable. Among available datapoints, prescription opioid showed the highest growth rate of 0.260519, followed by cocaine (0.079481).</p>
+<p>These findings overall somewhat match my expectation and how the media portrays the opioid crisis in the United States:</p>
+<p><strong><em>Expected</em></strong> - Synthetic opioid is the greatest cause of substantially increasing overdose among other types. - Male and white groups would have been affected the most with highest growth rate of opioid overdose deaths. - Black and hispanic groups would be the next in risk.</p>
+<p><strong><em>Unexpected</em></strong> - I was not aware that high number of American Indian and Alaska Natives lost their lives due to opioid overdose. - Contrary to my belief that prescription opioid would be less deadly, it actually is higher up in the rank in terms of deadliness.</p>
+</section>
+<section id="commality-contextual-observation" class="level3">
+<h3 class="anchored" data-anchor-id="commality-contextual-observation">Commality &amp; Contextual Observation</h3>
+<section id="common-inflection-point" class="level4">
+<h4 class="anchored" data-anchor-id="common-inflection-point">1. Common Inflection Point</h4>
+<p>For almost all graphs on each opioid drug type, both by sex and race, the <strong>year of 2013</strong> was a common inflection point which led to a drastic increase in the overdose death rate. Thus, I researched about events that happened in the United States around that time period:</p>
+<ul>
+<li>Second quarter of 2012 GDP report downgraded real growth to 1.3%: the economy itself was on a downward trajectory.</li>
+<li>Consumer spending stalled since August 2012.</li>
+<li>Third opioid overdose wave started in 2013. The rise of <strong>illicitly manufactured fentanyl</strong> resulted in exponential increase in overdose death involving synthetic opioids.</li>
+</ul>
+<p>Regarding the last bulletpoint above, fentanyl has become one of the deadliest and widely used opioids in the United States today, as well as across the world. According to Centers for Disease Control and Prevention (CDC), it is a synthetic opioid that is <strong>50 times stronger than heroin and 100 times stronger than morphine.</strong> It is a major contributor to fatal and nonfatal overdoses in the U.S.</p>
+<p><br>This synthetic opioid is so harzardous that being exposed to it just for a short period of time will make people experience severe sideeffects, ranging from sedation, confusion, drowsiness, dizziness, nausea and vomiting, urinary retention, pupillary constriction to respiratory depression. Fentanyl, along with other synthetic opioids, kills over 150 people die every day from overdoses. This is also due to it being a cheaper option as it takes very little to produce fentanyl. More information can be found here:</p>
+<p>https://www.cdc.gov/stopoverdose/fentanyl/index.html https://www.forbes.com/sites/charleskadlec/2012/10/01/the-growth-recession-of-2012-and-the-presidential-election/?sh=176cb14447af</p>
+</section>
+<section id="synthetic-opioid-highest-overdose-death-rate-for-all-groups" class="level4">
+<h4 class="anchored" data-anchor-id="synthetic-opioid-highest-overdose-death-rate-for-all-groups">2. Synthetic Opioid: Highest Overdose Death Rate for ALL GROUPS</h4>
+<p>For all groups, both by sex and race, synthetic opioid showed the highest growth rate of overdose. This is mainly due to the rise of illicitly manufactured fentanyl use, which is described in detail above.</p>
+</section>
+</section>
+<section id="significance-of-this-project" class="level3">
+<h3 class="anchored" data-anchor-id="significance-of-this-project">Significance of This Project</h3>
+<p>Throughout the project, I learned tremendously about how severely the opioid epidemic has affected the lives of people in a wide range of population. While there are other websites and sources that display the overall trend of opioid overdose, my analysis can function as an implication of which sex and/or race group showcases the greatest vulnerability to opioid addiction and overdose. This can also create more effective advocacy efforts by targeting specific high risk groups.</p>
+</section>
+<section id="limitations-potential-future-improvement" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-potential-future-improvement">Limitations &amp; Potential Future Improvement</h3>
+<p>While I did my very best to provide in-depth analysis of the opioid overdose crisis, it is important to acknowledge some limitations: - Data of Asian or Pacific Islander and American Indian or Alaska Native were either missing completely or insufficient, which might have affected the validity of the result. - Despite hispanic being an ethnicity, I treated it as a race category. Since ethnicity is a much broader term than race, this might have decreased the accuracy and reliability of the analysis while miscalculating the scope of the population. - It is unclear how each race category is defined as. What about mixed race? - More statistical tests can be done to support my argument and findings.</p>
+<p>In order to improve the overall validity of the project, I can undertake some tasks mentioned below: - Try to find a better datafile with more comprehensive data for both sex and race. Ideally, this should also address how the data was obtained, with what method and under what definition. - Calculate more statistical tests such as a goodness-of-fit by looking at R-squared score to see how well my predicted values match the actual value in the datafile.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>From 1999 to to 2019, the opioid overdose death rate significantly increased, especially among <strong><em>white males</em></strong> in the United States. Starting 2013, the rapid rise of synthetic opioid along with the existing opioids such as prescription opioids, cocaine and heroin accelerated the rate of addiction and overdose. While more research should be done to acquire more data points for American Indian or Alaska Native and Asian or Pacific Islander groups, it is apparent that opioid overdose has become one of the leading causes of death in the United States.</p>
 
 
 </section>
