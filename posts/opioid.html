@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Michelle Ju Young Rhee">
-<meta name="dcterms.date" content="2023-03-13">
+<meta name="dcterms.date" content="2023-03-17">
 <meta name="description" content="How has the opioid overdose deaths in the U.S. progressed from 1999 to 2019 by sex and race?">
 
 <title>opioid_blog - Evolution of Opioid Overdose Death in the US</title>
@@ -194,14 +194,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 13, 2023</p>
+        <p class="date">March 17, 2023</p>
       </div>
     </div>
     
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">March 13, 2023</p>
+        <p class="date-modified">March 17, 2023</p>
       </div>
     </div>
       
@@ -1383,7 +1383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Any Opioid Overdose Death Rate by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1411,7 +1411,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0, 0.5, 'Rate')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Now that I observed the overall picture of the all opioid overdose growth, I started to dig deeper into analyzing the overdose growth of a <strong><em>specific opioid</em></strong> drug based on sex and race. The process is somewhat different. First, I obtained data from each column in the dataframe called drug. Then I added these values to a new empty list and created another empty list to store calcuated slopes only. Next, I wrote a for loop that goes through each group’s values, makes a scatterplot, calculate slopes using pyplot, plots the linear regression and appends the slopes to a list. Lastly, I changed design of the graph by adding title for each axis, main title and legend.</p>
@@ -1454,7 +1454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Prescription Overdose Death Growth by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-13-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-7-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>In order to determine whether linear or polynomial regression is more appropriate, I created a graph of polynomial regression below as a test. Since slope is only applicable for linear regression, I took a derivative which turned out to be -0.02592 and -0.04141 for female and male groups. According to the shape, this negative slope might be true. However, in terms of the overall trend, the rate of overdose death due to prescription opioid definitely grew over the years. Therefore, for the remainder of analysis, I decided to use linear regression which would better provide the relationship between the rate and year in a simplest manner.</p>
@@ -1497,7 +1497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Prescription Overdose Death Growth by Sex (POLYNOMIAL REGRESSION)')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-14-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-8-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>For the following analysis by race, some group data is missing unfortuantely. For the prescription overdose death growth below, data of Asian or Pacific Islanders is not available. For the sake of this project, I will still analyze all the avilable data in this datasource. However, this can be a room for improvement by compiling or finding a more comprehensive dataset in the future.</p>
@@ -1550,7 +1550,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Prescription Overdose Death Growth by Race')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-15-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-9-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1594,7 +1594,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Synthetic Overdose Death Growth by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-16-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-10-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1643,7 +1643,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Synthetic Overdose Death Growth by Race')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-17-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-11-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1687,7 +1687,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Heroin Overdose Death Growth by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-18-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-12-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1736,7 +1736,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Heroin Overdose Death Growth by Race')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-19-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-13-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1780,7 +1780,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Cocaine Overdose Death Growth by Sex')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-20-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-14-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -1832,7 +1832,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Text(0.5, 1.0, 'Cocaine Overdose Death Growth by Race')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="opioid_files/figure-html/cell-21-output-3.png" class="img-fluid"></p>
+<p><img src="opioid_files/figure-html/cell-15-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Now that I have calcuated slopes of all the groups, I compiled them into two separate dataframes (one for sex and another for race).</p>
